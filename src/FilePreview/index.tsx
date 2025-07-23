@@ -55,6 +55,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({
   }, [preview, fileType, axiosInstance]);
 
   const generatePdfThumbnail = async (pdfUrl: string) => {
+    setIsLoading(true);
     try {
       let pdfData: Uint8Array;
       if (axiosInstance) {
@@ -91,6 +92,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({
         .promise;
       setPdfThumbnail(canvas.toDataURL("image/png"));
    } catch (error) {
+    setIsLoading(false);
       console.error("Error generating PDF thumbnail:", error);
     }
   };
@@ -126,7 +128,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({
           onLoad={loaded}
           src={fileUrl}
           alt="Preview"
-          className={`preview-file ${isLoading ? "hidden" : ""}`}
+          className={`reactjs-file-preview-preview-file ${isLoading ? "reactjs-file-preview-hidden" : ""}`}
           onClick={() => openInNewTab(fileUrl)}
         />
       );
@@ -136,7 +138,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({
           onLoad={loaded}
           src={fileUrl}
           controls
-          className={`preview-file ${isLoading ? "hidden" : ""}`}
+          className={`reactjs-file-preview-preview-file ${isLoading ? "reactjs-file-preview-hidden" : ""}`}
           onClick={() => openInNewTab(fileUrl)}
         />
       );
@@ -146,7 +148,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({
           onLoad={loaded}
           src={pdfThumbnail || fileUrl}
           alt="PDF Preview"
-          className={`preview-file ${isLoading ? "hidden" : ""}`}
+          className={`reactjs-file-preview-preview-file ${isLoading ? "reactjs-file-preview-hidden" : ""}`}
           onClick={() => openInNewTab(fileUrl)}
         />
       );
@@ -156,7 +158,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({
       <img
         src={errorImage}
         alt="errorImage"
-        className={`preview-file ${isLoading ? "hidden" : ""}`}
+        className={`reactjs-file-preview-preview-file ${isLoading ? "reactjs-file-preview-hidden" : ""}`}
         onLoad={() => setIsLoading(false)}
       />);
     } else {
@@ -166,7 +168,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({
 
   if (!resolvedType && placeHolderImage) {
     return (
-      <img src={placeHolderImage} alt="placeHolder" className="preview-file" />
+      <img src={placeHolderImage} alt="placeHolder" className="reactjs-file-preview-preview-file" />
     );
   }
 
@@ -174,8 +176,8 @@ const FilePreview: React.FC<FilePreviewProps> = ({
     <>
       {renderFile()}
       {isLoading ? (
-        <div className="loader-container">
-          <div className="loader"></div>
+        <div className="reactjs-file-preview-loader-container">
+          <div className="reactjs-file-preview-loader"></div>
         </div>
       ) : null}
     </>
