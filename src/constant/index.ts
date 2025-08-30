@@ -10,5 +10,3 @@ export const SUPPORTED_EXTENSIONS = {
   VIDEO: ["mp4", "webm", "ogg"],
   PDF: ["pdf"]
 };
-
-export const PDF_JS_LIB_SRC = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js";

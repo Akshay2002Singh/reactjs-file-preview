@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import * as pdfjsLib from "pdfjs-dist";
+import pdfWorker from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 import "./styles.css";
 import { getFileType } from "../utils";
-import { FILE_TYPES, PDF_JS_LIB_SRC } from "../constant";
+import { FILE_TYPES } from "../constant";
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = PDF_JS_LIB_SRC;
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 interface FilePreviewProps {
-  preview: string|File;
+  preview: string | File;
   clarity?: number;
   placeHolderImage?: string;
   errorImage?: string;
@@ -23,7 +24,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({
   fileType,
   axiosInstance = null,
 }) => {
-  const [fileUrl, setFileUrl] = useState<string>('');
+  const [fileUrl, setFileUrl] = useState<string>("");
   const [pdfThumbnail, setPdfThumbnail] = useState<string | null>(null);
   const [resolvedType, setResolvedType] = useState<string>(fileType ?? "");
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -33,7 +34,9 @@ const FilePreview: React.FC<FilePreviewProps> = ({
     if (preview instanceof File) {
       const url = URL.createObjectURL(preview);
       setFileUrl(url);
-      return () => URL.revokeObjectURL(url); // Cleanup on unmount
+      if (url) {
+        return () => URL.revokeObjectURL(url); // Cleanup on unmount
+      }
     } else {
       setFileUrl(preview);
     }
@@ -76,7 +79,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({
       const pdf = await loadingTask.promise;
       const page = await pdf.getPage(1);
 
-      const desiredWidth = clarity??1000;
+      const desiredWidth = clarity ?? 1000;
       const viewport = page.getViewport({ scale: 1 });
       const scale = desiredWidth / viewport.width;
       const scaledViewport = page.getViewport({ scale });
@@ -88,11 +91,14 @@ const FilePreview: React.FC<FilePreviewProps> = ({
       canvas.width = scaledViewport.width;
       canvas.height = scaledViewport.height;
 
-      await page.render({ canvasContext: ctx, viewport: scaledViewport })
-        .promise;
+      await page.render({
+        canvas,
+        canvasContext: ctx,
+        viewport: scaledViewport,
+      }).promise;
       setPdfThumbnail(canvas.toDataURL("image/png"));
-   } catch (error) {
-    setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
       console.error("Error generating PDF thumbnail:", error);
     }
   };
@@ -118,7 +124,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({
   }
 
   function renderFile() {
-    if(!resolvedType) {
+    if (!resolvedType) {
       return null;
     }
 
@@ -128,7 +134,9 @@ const FilePreview: React.FC<FilePreviewProps> = ({
           onLoad={loaded}
           src={fileUrl}
           alt="Preview"
-          className={`reactjs-file-preview-preview-file ${isLoading ? "reactjs-file-preview-hidden" : ""}`}
+          className={`reactjs-file-preview-preview-file ${
+            isLoading ? "reactjs-file-preview-hidden" : ""
+          }`}
           onClick={() => openInNewTab(fileUrl)}
         />
       );
@@ -138,7 +146,9 @@ const FilePreview: React.FC<FilePreviewProps> = ({
           onLoad={loaded}
           src={fileUrl}
           controls
-          className={`reactjs-file-preview-preview-file ${isLoading ? "reactjs-file-preview-hidden" : ""}`}
+          className={`reactjs-file-preview-preview-file ${
+            isLoading ? "reactjs-file-preview-hidden" : ""
+          }`}
           onClick={() => openInNewTab(fileUrl)}
         />
       );
@@ -148,19 +158,24 @@ const FilePreview: React.FC<FilePreviewProps> = ({
           onLoad={loaded}
           src={pdfThumbnail || fileUrl}
           alt="PDF Preview"
-          className={`reactjs-file-preview-preview-file ${isLoading ? "reactjs-file-preview-hidden" : ""}`}
+          className={`reactjs-file-preview-preview-file ${
+            isLoading ? "reactjs-file-preview-hidden" : ""
+          }`}
           onClick={() => openInNewTab(fileUrl)}
         />
       );
     } else if (resolvedType === FILE_TYPES.UNKNOWN && errorImage) {
       console.log("errorImage", errorImage);
       return (
-      <img
-        src={errorImage}
-        alt="errorImage"
-        className={`reactjs-file-preview-preview-file ${isLoading ? "reactjs-file-preview-hidden" : ""}`}
-        onLoad={() => setIsLoading(false)}
-      />);
+        <img
+          src={errorImage}
+          alt="errorImage"
+          className={`reactjs-file-preview-preview-file ${
+            isLoading ? "reactjs-file-preview-hidden" : ""
+          }`}
+          onLoad={() => setIsLoading(false)}
+        />
+      );
     } else {
       return <span>Unsupported file type</span>;
     }
@@ -168,7 +183,11 @@ const FilePreview: React.FC<FilePreviewProps> = ({
 
   if (!resolvedType && placeHolderImage) {
     return (
-      <img src={placeHolderImage} alt="placeHolder" className="reactjs-file-preview-preview-file" />
+      <img
+        src={placeHolderImage}
+        alt="placeHolder"
+        className="reactjs-file-preview-preview-file"
+      />
     );
   }
 
