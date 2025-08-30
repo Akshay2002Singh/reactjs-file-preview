@@ -42,7 +42,6 @@ function App() {
     <div>
       <input
         type="file"
-        accept="image/*,application/pdf"
         onChange={handleFileChange}
       />
         <div
@@ -59,7 +58,7 @@ function App() {
             backgroundColor: "#f3f3f3",
           }}
         >
-          {fileUrl && <FilePreview preview={fileUrl} />}        
+          {<FilePreview preview={fileUrl}  placeHolderImage="https://placehold.co/600x400?text=Hello+World" errorImage="https://placehold.co/600x400?text=Error"/>}        
           </div>
     </div>
   );

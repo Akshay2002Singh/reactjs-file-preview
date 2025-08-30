@@ -8,7 +8,7 @@ import { FILE_TYPES } from "../constant";
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 interface FilePreviewProps {
-  preview: string | File;
+  preview: string | File | null;
   clarity?: number;
   placeHolderImage?: string;
   errorImage?: string;
@@ -26,7 +26,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({
 }) => {
   const [fileUrl, setFileUrl] = useState<string>("");
   const [pdfThumbnail, setPdfThumbnail] = useState<string | null>(null);
-  const [resolvedType, setResolvedType] = useState<string>(fileType ?? "");
+  const [resolvedType, setResolvedType] = useState<string>(fileType ?? FILE_TYPES.UNKNOWN);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -38,10 +38,10 @@ const FilePreview: React.FC<FilePreviewProps> = ({
         return () => URL.revokeObjectURL(url); // Cleanup on unmount
       }
     } else {
-      if (preview.startsWith("/")) {
+      if (typeof preview === "string" && preview.startsWith("/")) {
         const temp = new URL(preview, import.meta.url).href;
         setFileUrl(temp);
-      } else {
+      } else if(preview) {
         setFileUrl(preview);
       }
     }
@@ -55,11 +55,12 @@ const FilePreview: React.FC<FilePreviewProps> = ({
 
   useEffect(() => {
     const resolveType = async () => {
+
+      if (!preview) return;
       const type = await getFileType(fileType, preview, axiosInstance);
       setResolvedType(type);
     };
-
-    resolveType();
+      resolveType();
   }, [preview, fileType, axiosInstance]);
 
   const generatePdfThumbnail = async (pdfUrl: string) => {
@@ -186,7 +187,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({
     }
   }
 
-  if (!resolvedType && placeHolderImage) {
+  if (resolvedType === FILE_TYPES.UNKNOWN && placeHolderImage && !preview) {
     return (
       <img
         src={placeHolderImage}
