@@ -99,11 +99,11 @@ export default function ExamplePage() {
         <CodeBlock
           code={`
 <div style={{ width: "300px" }}>
-    <FilePreview preview="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" />
+    <FilePreview preview="https://raw.githubusercontent.com/Akshay2002Singh/reactjs-file-preview/example-app/src/assets/examplePdf.pdf" />
 </div>`}
         />
         <div style={{ width: "300px" }}>
-          <FilePreview preview="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" />
+          <FilePreview preview="https://raw.githubusercontent.com/Akshay2002Singh/reactjs-file-preview/example-app/src/assets/examplePdf.pdf" />
         </div>
       </div>
 
