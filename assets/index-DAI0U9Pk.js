@@ -62,8 +62,8 @@ Error generating stack: `+s.message+`
     <FilePreview preview="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600" />
 </div>`}),nl.jsx("div",{style:{width:"300px"},children:nl.jsx(Ri,{preview:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600"})})]}),nl.jsxs("div",{style:wi,children:[nl.jsx("h2",{style:Si,children:"2. PDF from URL"}),nl.jsx(xi,{code:`
 <div style={{ width: "300px" }}>
-    <FilePreview preview="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" />
-</div>`}),nl.jsx("div",{style:{width:"300px"},children:nl.jsx(Ri,{preview:"https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"})})]}),nl.jsxs("div",{style:wi,children:[nl.jsx("h2",{style:Si,children:"3. Video from URL"}),nl.jsx(xi,{code:`
+    <FilePreview preview="https://raw.githubusercontent.com/Akshay2002Singh/reactjs-file-preview/example-app/src/assets/examplePdf.pdf" />
+</div>`}),nl.jsx("div",{style:{width:"300px"},children:nl.jsx(Ri,{preview:"https://raw.githubusercontent.com/Akshay2002Singh/reactjs-file-preview/example-app/src/assets/examplePdf.pdf"})})]}),nl.jsxs("div",{style:wi,children:[nl.jsx("h2",{style:Si,children:"3. Video from URL"}),nl.jsx(xi,{code:`
 <div style={{ width: "400px" }}>
     <FilePreview preview="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
 </div>`}),nl.jsx("div",{style:{width:"400px"},children:nl.jsx(Ri,{preview:"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"})})]}),nl.jsxs("div",{style:wi,children:[nl.jsx("h2",{style:Si,children:"4. File Input With Placeholder & Error Image"}),nl.jsx(xi,{code:`
