@@ -5,7 +5,6 @@ import samplePdf from "../assets/examplePdf.pdf";
 import sampleVideo from "../assets/exampleVideo.mp4";
 
 const containerStyle: React.CSSProperties = {
-  padding: "2rem",
   fontFamily: "sans-serif",
   minHeight: "100vh",
 };
@@ -75,7 +74,7 @@ export default function ExamplePage() {
       <h1 style={{ textAlign: "center", marginBottom: "1rem" }}>
         📂 reactjs-file-preview — Demo Showcase
       </h1>
-      <p style={{ textAlign: "center", color: "#555", marginBottom: "2rem" }}>
+      <p style={{ textAlign: "center", color: "#b4b4b4ff", marginBottom: "2rem" }}>
         A clean single-column layout demonstrating all usage combinations of the{" "}
         <code>FilePreview</code> component.
       </p>
@@ -113,11 +112,11 @@ export default function ExamplePage() {
         <h2 style={titleStyle}>3. Video from URL</h2>
         <CodeBlock
           code={`
-<div style={{ width: "300px" }}>
+<div style={{ width: "400px" }}>
     <FilePreview preview="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
 </div>`}
         />
-        <div style={{ width: "300px" }}>
+        <div style={{ width: "400px" }}>
           <FilePreview preview="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
         </div>
       </div>
@@ -133,7 +132,7 @@ onChange={(e) => e.target.files && setFile(e.target.files[0])}
 style={{ marginBottom: "1rem" }}
 />
 
-<div style={{ width: "300px" }}>
+<div style={{ width: "600px", height: "400px", borderRadius: '12px', overflow: 'hidden' }}>
     <FilePreview
         preview={file ?? ""}
         placeHolderImage="https://placehold.co/600x400/fff/000?text=Placeholder"
