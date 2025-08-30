@@ -51,3 +51,7 @@
   width: 0;
   height: 0;
 }
+
+.reactjs-file-preview-error{
+  color:black;
+}

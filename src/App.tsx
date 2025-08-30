@@ -34,12 +34,9 @@ function App() {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const url = URL.createObjectURL(file);
       setFileUrl(file);
     }
   };
-
-  console.log(fileUrl);
 
   return (
     <div>
@@ -62,8 +59,8 @@ function App() {
             backgroundColor: "#f3f3f3",
           }}
         >
-          {fileUrl && <FilePreview preview={fileUrl} />}
-        </div>
+          {fileUrl && <FilePreview preview={fileUrl} />}        
+          </div>
     </div>
   );
 }

@@ -38,7 +38,12 @@ const FilePreview: React.FC<FilePreviewProps> = ({
         return () => URL.revokeObjectURL(url); // Cleanup on unmount
       }
     } else {
-      setFileUrl(preview);
+      if (preview.startsWith("/")) {
+        const temp = new URL(preview, import.meta.url).href;
+        setFileUrl(temp);
+      } else {
+        setFileUrl(preview);
+      }
     }
   }, [preview]);
 
@@ -165,7 +170,6 @@ const FilePreview: React.FC<FilePreviewProps> = ({
         />
       );
     } else if (resolvedType === FILE_TYPES.UNKNOWN && errorImage) {
-      console.log("errorImage", errorImage);
       return (
         <img
           src={errorImage}
@@ -177,7 +181,8 @@ const FilePreview: React.FC<FilePreviewProps> = ({
         />
       );
     } else {
-      return <span>Unsupported file type</span>;
+      if (isLoading) setIsLoading(false);
+      return <span className="reactjs-file-preview-error">Unsupported file type</span>;
     }
   }
 

@@ -2,24 +2,25 @@ import { FILE_TYPES, SUPPORTED_EXTENSIONS } from "../constant";
 
 export const getFileType = async (
   fileType: string | undefined,
-  preview: string|File,
+  preview: string | File,
   axiosInstance: any = null
 ): Promise<string> => {
-
-
   if (fileType) return fileType;
-
   try {
+    let extension,
+      tempPreview = preview;
 
-    let extension;
+    if (typeof tempPreview === "object" && tempPreview instanceof File){
+      extension = tempPreview.type.split("/")[1];
+    }
+    else {
+      if (typeof preview === "string" && preview.startsWith("/")) {
+        tempPreview = new URL(preview, import.meta.url).href;
+      }
 
-    if(typeof preview === 'object' && preview instanceof File)
-      extension= preview.type.split('/')[1];
-
-    else{
-    const url = new URL(preview);
-    const pathname = url.pathname.toLowerCase();
-    extension = getFileExtension(pathname);
+      const url = new URL(tempPreview);
+      const pathname = url.pathname.toLowerCase();
+      extension = getFileExtension(pathname);
     }
 
     if (SUPPORTED_EXTENSIONS.IMAGE.includes(extension)) {
@@ -32,8 +33,8 @@ export const getFileType = async (
 
     const fetcher = axiosInstance ? axiosInstance.get : fetch;
     const response = axiosInstance
-      ? await fetcher(preview)
-      : await fetcher(preview, { method: "GET" });
+      ? await fetcher(tempPreview)
+      : await fetcher(tempPreview, { method: "GET" });
     const contentType = axiosInstance
       ? response.headers["content-type"]
       : response.headers.get("Content-Type");
