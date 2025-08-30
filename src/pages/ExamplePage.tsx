@@ -62,7 +62,7 @@ function CodeBlock({ code }: { code: string }) {
       <button style={copyBtnStyle} onClick={handleCopy}>
         Copy
       </button>
-      <pre style={{ margin: 0, whiteSpace: "pre-wrap" }}>{code}</pre>
+      <pre style={{ margin: 0, textAlign: "left" }}>{code}</pre>
     </div>
   );
 }
@@ -85,7 +85,7 @@ export default function ExamplePage() {
         <h2 style={titleStyle}>1. Image from URL</h2>
         <CodeBlock
           code={`
-<div style={{width: '300px'}}>
+<div style={{ width: "300px" }}>
     <FilePreview preview="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600" />
 </div>`}
         />
@@ -96,77 +96,107 @@ export default function ExamplePage() {
 
       {/* PDF FROM REMOTE URL */}
       <div style={cardStyle}>
-        <h2 style={titleStyle}>1. PDF from URL</h2>
+        <h2 style={titleStyle}>2. PDF from URL</h2>
         <CodeBlock
-          code={`<FilePreview preview="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" />`}
+          code={`
+<div style={{ width: "300px" }}>
+    <FilePreview preview="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" />
+</div>`}
         />
-        <FilePreview preview="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" />
+        <div style={{ width: "300px" }}>
+          <FilePreview preview="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" />
+        </div>
       </div>
 
-      {/* PDF FROM REMOTE URL */}
+      {/* Video FROM REMOTE URL */}
       <div style={cardStyle}>
-        <h2 style={titleStyle}>1. Video from URL</h2>
+        <h2 style={titleStyle}>3. Video from URL</h2>
         <CodeBlock
-          code={`<FilePreview preview="https://file-examples.com/storage/fe77d6f38e68b20cd96e0c3/2017/04/file_example_MP4_640_3MG.mp4" />`}
+          code={`
+<div style={{ width: "300px" }}>
+    <FilePreview preview="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
+</div>`}
         />
-        <FilePreview preview="https://file-examples.com/storage/fe77d6f38e68b20cd96e0c3/2017/04/file_example_MP4_640_3MG.mp4" />
+        <div style={{ width: "300px" }}>
+          <FilePreview preview="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
+        </div>
       </div>
 
-      {/* FILE INPUT */}
+      {/* FILE INPUT WITH PLACEHOLDER AND ERROR IMAGE */}
       <div style={cardStyle}>
-        <h2 style={titleStyle}>2. File Input</h2>
+        <h2 style={titleStyle}>4. File Input With Placeholder & Error Image</h2>
         <CodeBlock
-          code={`<input type="file" onChange={...} />
-<FilePreview preview={file} />`}
+          code={`
+<input
+type="file"
+onChange={(e) => e.target.files && setFile(e.target.files[0])}
+style={{ marginBottom: "1rem" }}
+/>
+
+<div style={{ width: "300px" }}>
+    <FilePreview
+        preview={file ?? ""}
+        placeHolderImage="https://placehold.co/600x400/fff/000?text=Placeholder"
+        errorImage="https://placehold.co/600x400/fff/FF0000?text=Error"
+    />
+</div>`}
         />
         <input
           type="file"
           onChange={(e) => e.target.files && setFile(e.target.files[0])}
           style={{ marginBottom: "1rem" }}
         />
-        {file && <FilePreview preview={file} />}
+        <div style={{ width: "600px", height: "400px", borderRadius: '12px', overflow: 'hidden' }}>
+          <FilePreview
+            preview={file ?? ""}
+            placeHolderImage="https://placehold.co/600x400/fff/000?text=Placeholder"
+            errorImage="https://placehold.co/600x400/fff/FF0000?text=Error"
+          />
+        </div>
       </div>
 
       {/* LOCAL IMPORTED IMAGE */}
       <div style={cardStyle}>
-        <h2 style={titleStyle}>3. Local Imported Asset</h2>
+        <h2 style={titleStyle}>5. Local Imported Image File</h2>
         <CodeBlock
-          code={`import sampleImg from "../assets/exampleImage.png";
+          code={`
+import sampleImg from "../assets/exampleImage.png";
 
-<FilePreview preview={sampleImg} />`}
+<div style={{ width: "300px" }}>
+    <FilePreview preview={sampleImg} />
+</div>`}
         />
-        <FilePreview preview={sampleImg} />
+        <div style={{ width: "300px" }}>
+          <FilePreview preview={sampleImg} />
+        </div>
       </div>
 
-      {/* VIDEO */}
+      {/* LOCAL IMPORTED VIDEO */}
       <div style={cardStyle}>
-        <h2 style={titleStyle}>3. Video File</h2>
-        <CodeBlock code={`<FilePreview preview={sampleVideo} />`} />
-        <FilePreview preview={sampleVideo} />
-      </div>
-
-      {/* PDF */}
-      <div style={cardStyle}>
-        <h2 style={titleStyle}>4. PDF Preview</h2>
-        <CodeBlock code={`<FilePreview preview={samplePdf} clarity={800} />`} />
-        <FilePreview preview={samplePdf} clarity={800} />
-      </div>
-
-      {/* PLACEHOLDER + ERROR IMAGE */}
-      <div style={cardStyle}>
-        <h2 style={titleStyle}>5. Placeholder & Error</h2>
+        <h2 style={titleStyle}>6. Local Imported Video File</h2>
         <CodeBlock
-          code={`<FilePreview
-  preview="https://example.com/invalid.png"
-  placeHolderImage="https://via.placeholder.com/150/cccccc/000000?text=Loading..."
-  errorImage="https://via.placeholder.com/150/ff0000/ffffff?text=Error"
-/>`}
+          code={`
+<div style={{ width: "300px" }}>
+    <FilePreview preview={sampleVideo} />
+</div>`}
         />
-        <FilePreview
-          preview="https://example.com/invalid.png"
-          placeHolderImage="https://via.placeholder.com/150/cccccc/000000?text=Loading..."
-          errorImage="https://via.placeholder.com/150/ff0000/ffffff?text=Error"
+        <div style={{ width: "300px" }}>
+          <FilePreview preview={sampleVideo} />
+        </div>
+      </div>
+
+      {/* LOCAL IMPORTED PDF */}
+      <div style={cardStyle}>
+        <h2 style={titleStyle}>7. Local Imported PDF File</h2>
+        <CodeBlock
+          code={`
+<div style={{ width: "300px" }}>
+    <FilePreview preview={samplePdf} clarity={800} />
+</div>`}
         />
+        <div style={{ width: "300px" }}>
+          <FilePreview preview={samplePdf} clarity={800} />
+        </div>
       </div>
     </div>
   );
