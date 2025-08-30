@@ -148,7 +148,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({
     } else if (resolvedType === FILE_TYPES.VIDEO) {
       return (
         <video
-          onLoad={loaded}
+          onLoadedData={loaded}
           src={fileUrl}
           controls
           className={`reactjs-file-preview-preview-file ${
