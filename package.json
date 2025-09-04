@@ -1,7 +1,7 @@
 {
   "name": "reactjs-file-preview",
   "private": false,
-  "version": "1.0.10",
+  "version": "1.0.11",
   "type": "module",
   "description": "Effortlessly preview images, videos, and PDFs in your React applications with MyFilePreview. This lightweight and customizable component intelligently detects file types and displays them.",
   "main": "dist/index.js",
@@ -18,8 +18,7 @@
   },
   "dependencies": {
     "ajv": "^8.17.1",
-    "pdfjs-dist": "^5.4.54",
-    "vite-plugin-css-injected-by-js": "^3.5.2"
+    "pdfjs-dist": "^5.4.54"
   },
   "repository": {
     "type": "git",
@@ -55,6 +54,7 @@
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
     "vite": "^6.2.2",
+    "vite-plugin-css-injected-by-js": "^3.5.2",
     "vite-plugin-dts": "^4.5.3"
   }
 }
