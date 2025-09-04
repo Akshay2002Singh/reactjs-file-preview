@@ -12,6 +12,9 @@ Effortlessly preview images, videos, and PDFs in your React applications with **
 
 Perfect for **file upload interfaces, document management systems, and media galleries!** 🚀
 
+**Live Demo:** [https://akshay2002singh.github.io/reactjs-file-preview/](https://akshay2002singh.github.io/reactjs-file-preview/)
+
+
 ---
 
 ## 📦 Installation
